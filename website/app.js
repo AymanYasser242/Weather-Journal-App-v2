@@ -11,13 +11,15 @@ function perform(){
     let zip=document.getElementById('zip').value;
     let feeling=document.getElementById('feeling').value;
     getWeather(baseUrl,zip,apiKey)
-//TODO: sending weather data to the local server. 
     .then(function(data){
+    //TODO: sending weather data to the local server.     
         transData('/add',{date:newDate, city:data.city.name ,temp:data.list[0].main.temp , content:feeling});
+    //calling the function to update UI.    
+    }).then(function() {
+      updateUI()
     });
-    //calling the function to update UI.
-    updateUI();
 };
+
 //get the weather info  from 'openweather.org' .
 const getWeather = async(url,zip,key)=>{
 const res = await fetch(url+zip+key)
